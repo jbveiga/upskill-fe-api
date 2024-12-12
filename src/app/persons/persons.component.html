@@ -1,1 +1,11 @@
-<p>persons works!</p>
+<h2>Persons</h2>
+<ul>
+    @for (person of persons; track person.name) {
+        <li>
+            <button type="button" (click)="onSelect(person)">
+                {{ person.name }}
+            </button>
+        </li>
+    }
+</ul>
+<app-person-details [selectedPerson]="selectedPerson"></app-person-details>
