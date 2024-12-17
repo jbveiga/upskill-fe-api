@@ -1,17 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Person } from './person';
 import { Injectable } from '@angular/core';
+import { Person } from '../thisModels/person';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PersonService {
-  private apiUrl = 'http://localhost:8080/api/persons';
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = "http://localhost:8080/api/persons" ;
 
-  getPersons(): Observable<Person[]> {
+  constructor(private http: HttpClient) { }
+
+  getPersons(): Observable<Person[]>{
     return this.http.get<Person[]>(this.apiUrl);
   }
 
@@ -20,12 +21,12 @@ export class PersonService {
   }
 
   updatePerson(person: Person): Observable<Person> {
-    const localURL = this.apiUrl + '/' + person._id;
+    const localURL = this.apiUrl+"/"+person._id;
     return this.http.put<Person>(localURL, person);
   }
 
   deletePerson(person: Person): Observable<Person> {
-    const localURL = this.apiUrl + '/' + person._id;
+    const localURL = this.apiUrl+"/"+person._id;
     return this.http.delete<Person>(localURL);
   }
 }
