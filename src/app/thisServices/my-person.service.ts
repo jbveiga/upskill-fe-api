@@ -1,27 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Person } from '../thisModels/person';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { AuthenticatorService } from './authenticator.service';
+import { Observable } from 'rxjs';
+import { Person } from '../thisModels/person';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonService {
-
-  private apiUrl = "http://localhost:8080/api/persons" ;
+export class MyPersonService {
+  apiUrl: string = "http://localhost:8080/api/persons/";
 
   constructor(
     private http: HttpClient,
     private authenticatorService: AuthenticatorService
   ){}
 
-  getPersons(): Observable<Person[]>{
-    return this.http.get<Person[]>(this.apiUrl, { headers: this.authenticatorService.getHeaders() });
-  }
-
-  createPerson(person: Person): Observable<Person> {
-    return this.http.post<Person>(this.apiUrl, person, { headers: this.authenticatorService.getHeaders() });
+  getOne(url: string): Observable<Person>{
+    return this.http.get<Person>(this.apiUrl+url, { headers: this.authenticatorService.getHeaders() });
   }
 
   updatePerson(person: Person): Observable<Person> {

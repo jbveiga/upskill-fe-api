@@ -1,27 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Driver } from '../thisModels/driver';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { AuthenticatorService } from './authenticator.service';
+import { Observable } from 'rxjs';
+import { Driver } from '../thisModels/driver';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DriverService {
-
-  private apiUrl = "http://localhost:8080/api/drivers" ;
+export class MyDriverService {
+  apiUrl: string = "http://localhost:8080/api/drivers/";
 
   constructor(
     private http: HttpClient,
     private authenticatorService: AuthenticatorService
   ){}
 
-  getDrivers(): Observable<Driver[]>{
-    return this.http.get<Driver[]>(this.apiUrl, { headers: this.authenticatorService.getHeaders() });
-  }
-
-  createDriver(driver: Driver): Observable<Driver> {
-    return this.http.post<Driver>(this.apiUrl, driver, { headers: this.authenticatorService.getHeaders() });
+  getOne(url: string): Observable<Driver>{
+    return this.http.get<Driver>(this.apiUrl+url, { headers: this.authenticatorService.getHeaders() });
   }
 
   updateDriver(driver: Driver): Observable<Driver> {
